@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Pastikan tampilan selalu responsif dan potrait -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luminous v1.4 Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <!-- MQTT.js Library -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top-section">
+    <div class="header-content">
+      <div class="header-left">
+        <img id="plantIcon" src="https://img.icons8.com/external-global-made-by-made/100/1A1A1A/external-Light-ui-and-ux-global-made-by-made-2.png" alt="Plantify Logo" class="plant-logo">
+        <div class="title-group">
+          <h1>Luminous <span>v1.4</span></h1>
+          <p>By Arceus</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="connection-indicator">
+          <span id="connectionLed" class="led offline"></span>
+          <p id="statusText" class="status-offline">Offline</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle-btn">Toggle Theme</button>
+        <p id="timeText">-- -- ---- --:--:--</p>
+      </div>
+    </div>
+  </header>
+
+  <div id="toastContainer"></div>
+
+  <div class="container">
+    <!-- Greeting & Sensor Card -->
+    <div class="card greeting-card">
+      <img id="leafIcon" src="https://img.icons8.com/external-outline-icons-maxicons/100/external-light-christmas-outline-outline-icons-maxicons.png" alt="Leaf Icon" class="icon-leaf">
+      <h2 id="greetingText">Good Evening!</h2>
+      <p class="subtext">Welcome to your smart light system</p>
+    </div>
+    <div class="card sensor-card">
+      <div class="sensor-box">
+        <img class="sensor-icon" src="https://img.icons8.com/color/48/dry.png" alt="Temperature Icon">
+        <p class="sensor-value" id="tempValue">-- °C</p>
+        <p class="sensor-label">Temperature</p>
+      </div>
+      <div class="sensor-box">
+        <img class="sensor-icon" src="https://img.icons8.com/color/48/wind.png" alt="Humidity Icon">
+        <p class="sensor-value" id="humidValue">-- %</p>
+        <p class="sensor-label">Humidity</p>
+      </div>
+    </div>
+
+    <!-- Navigasi Menu Horizontal -->
+    <nav class="nav-menu">
+      <ul>
+        <li id="navManual" class="nav-item active">
+          <img id="manualIcon" class="nav-icon" src="https://img.icons8.com/ios-filled/20/000000/control-panel.png" alt="Manual">
+          <span>Manual</span>
+        </li>
+        <li id="navAutomation" class="nav-item">
+          <img id="automationIcon" class="nav-icon" src="https://img.icons8.com/ios-filled/20/000000/alarm-clock.png" alt="Automation">
+          <span>Automation</span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Konten Utama -->
+    <div class="tab-content">
+      <!-- Manual Control Section -->
+      <div id="manualSection">
+        <div class="card relay-card">
+          <h3>Relay Control</h3>
+          <div class="relay-container">
+            <!-- Setiap relay dilengkapi dengan slider dan indikator ikon -->
+            <div class="relay-item">
+              <div class="relay-indicator">
+                <img id="relay1-img" src="https://img.icons8.com/color/48/000000/light-off.png" alt="Relay 1" class="relay-icon">
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="relay1-switch" onchange="toggleRelay(1, this.checked)">
+                <span class="slider"></span>
+              </label>
+              <p class="relay-text">Relay 1</p>
+            </div>
+            <div class="relay-item">
+              <div class="relay-indicator">
+                <img id="relay2-img" src="https://img.icons8.com/color/48/000000/light-off.png" alt="Relay 2" class="relay-icon">
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="relay2-switch" onchange="toggleRelay(2, this.checked)">
+                <span class="slider"></span>
+              </label>
+              <p class="relay-text">Relay 2</p>
+            </div>
+            <div class="relay-item">
+              <div class="relay-indicator">
+                <img id="relay3-img" src="https://img.icons8.com/color/48/000000/light-off.png" alt="Relay 3" class="relay-icon">
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="relay3-switch" onchange="toggleRelay(3, this.checked)">
+                <span class="slider"></span>
+              </label>
+              <p class="relay-text">Relay 3</p>
+            </div>
+            <div class="relay-item">
+              <div class="relay-indicator">
+                <img id="relay4-img" src="https://img.icons8.com/color/48/000000/light-off.png" alt="Relay 4" class="relay-icon">
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="relay4-switch" onchange="toggleRelay(4, this.checked)">
+                <span class="slider"></span>
+              </label>
+              <p class="relay-text">Relay 4</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Automation Section -->
+      <div id="automationSection" style="display: none;">
+        <div class="card timer-card">
+          <h3>Timer Commands</h3>
+          <div class="timer-row">
+            <div class="timer-col">
+              <label>Relay:</label>
+              <select id="timerOnRelay">
+                <option value="1">Relay 1</option>
+                <option value="2">Relay 2</option>
+                <option value="3">Relay 3</option>
+                <option value="4">Relay 4</option>
+              </select>
+              <label>Duration (s):</label>
+              <input type="number" id="timerOnDuration" placeholder="Duration">
+              <button onclick="sendTimerOn()">Timer On</button>
+            </div>
+            <div class="timer-col">
+              <label>Relay:</label>
+              <select id="timerOffRelay">
+                <option value="1">Relay 1</option>
+                <option value="2">Relay 2</option>
+                <option value="3">Relay 3</option>
+                <option value="4">Relay 4</option>
+              </select>
+              <label>Duration (s):</label>
+              <input type="number" id="timerOffDuration" placeholder="Duration">
+              <button onclick="sendTimerOff()">Timer Off</button>
+            </div>
+          </div>
+        </div>
+        <div class="card schedule-card">
+          <h3>Set Schedule</h3>
+          <form id="scheduleForm">
+            <div class="form-row">
+              <label for="scheduleRelay">Relay:</label>
+              <select id="scheduleRelay" name="scheduleRelay">
+                <option value="1">Relay 1</option>
+                <option value="2">Relay 2</option>
+                <option value="3">Relay 3</option>
+                <option value="4">Relay 4</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="scheduleAction">Action:</label>
+              <select id="scheduleAction" name="scheduleAction">
+                <option value="on">ON</option>
+                <option value="off">OFF</option>
+                <option value="toggle">TOGGLE</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="scheduleTime">Time:</label>
+              <input type="time" id="scheduleTime" name="scheduleTime">
+            </div>
+            <div class="form-row">
+              <label for="repeatType">Repeat:</label>
+              <select id="repeatType" name="repeatType">
+                <option value="none">No Repeat</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+              </select>
+            </div>
+            <div class="form-row weekly-options" id="weeklyOptions">
+              <span>Select Days:</span>
+              <label><input type="checkbox" value="Sun" name="weekDays"> Sun</label>
+              <label><input type="checkbox" value="Mon" name="weekDays"> Mon</label>
+              <label><input type="checkbox" value="Tue" name="weekDays"> Tue</label>
+              <label><input type="checkbox" value="Wed" name="weekDays"> Wed</label>
+              <label><input type="checkbox" value="Thu" name="weekDays"> Thu</label>
+              <label><input type="checkbox" value="Fri" name="weekDays"> Fri</label>
+              <label><input type="checkbox" value="Sat" name="weekDays"> Sat</label>
+            </div>
+            <div class="form-row">
+              <button type="button" onclick="sendSchedule()">Set Schedule</button>
+            </div>
+          </form>
+          <p class="note">Contoh: rtc_schedule:on:2:14:30:daily</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

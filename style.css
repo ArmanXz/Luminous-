@@ -1,0 +1,528 @@
+/* style.css - Tampilan modern, responsif, dengan animasi dan tema */
+
+* {
+  margin:  0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #f7f7f7 url('20250421_135100.png1') repeat;
+  background-size: cover;
+  color: #333;
+  min-height: 100vh;
+  transition: color 0.3s, background-color 0.3s;
+}
+body.dark-theme {
+  background: #2a2a2a url('1007818.png1') repeat;
+  background-size: cover;
+  color: #eee;
+}
+
+/* Header */
+.top-section {
+  background: rgba(249,249,249,0.9);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  transition: background-color 0.3s;
+}
+body.dark-theme .top-section {
+  background: rgba(40,40,40,0.9);
+}
+.header-content {
+  max-width: 360px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+.plant-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.title-group h1 {
+  font-size: 1.3rem;
+  margin-bottom: 3px;
+}
+.title-group span {
+  font-weight: normal;
+  font-size: 0.9rem;
+  color: #777;
+}
+.title-group p {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: -3px;
+}
+body.dark-theme .title-group span,
+body.dark-theme .title-group p {
+  color: #ccc;
+}
+.header-right {
+  flex-direction: column;
+  align-items: flex-end;
+}
+.header-right p {
+  font-size: 0.8rem;
+  margin: 2px 0;
+  transition: color 0.3s;
+}
+body.dark-theme .header-right p {
+  color: #ccc;
+}
+.connection-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.led {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  transition: background-color 0.3s;
+}
+.led.online {
+  background-color: #2ecc71;
+  animation: pulse 1.5s infinite;
+}
+.led.offline {
+  background-color: #e74c3c;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid #4CAF50;
+  color: #4CAF50;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+body.dark-theme .theme-toggle-btn {
+  border-color: #ffcc00;
+  color: #ffcc00;
+}
+
+/* Container */
+.container {
+  max-width: 360px;
+  margin: 20px auto 0;
+  padding: 0 10px;
+}
+
+/* Navigasi Menu Horizontal */
+.nav-menu {
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  margin: 10px auto;
+  max-width: 360px;
+  transition: transform 0.3s;
+}
+body.dark-theme .nav-menu {
+  background: #333;
+  border-top: 1px solid #444;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-item:hover {
+  background: rgba(0,0,0,0.05);
+  transform: scale(1.03);
+}
+body.dark-theme .nav-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+.nav-item.active {
+  background: #4CAF50;
+  color: #fff;
+}
+body.dark-theme .nav-item.active {
+  background: #ffcc00;
+  color: #222;
+}
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  transition: transform 0.3s;
+}
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Tab Content */
+.tab-content {
+  margin-top: 15px;
+}
+
+/* Card Style */
+.card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 20px;
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+body.dark-theme .card {
+  background: rgba(50,50,50,0.85);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  color: #eee;
+}
+
+/* Greeting Card */
+.greeting-card {
+  text-align: center;
+}
+.icon-leaf {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+}
+.greeting-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+.subtext {
+  color: #777;
+  font-size: 0.9rem;
+}
+body.dark-theme .subtext {
+  color: #ccc;
+}
+
+/* Sensor Card */
+.sensor-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sensor-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+.sensor-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  transition: transform 0.3s;
+}
+.sensor-icon:hover {
+  transform: scale(1.1);
+}
+.sensor-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.sensor-label {
+  font-size: 0.8rem;
+  color: #888;
+}
+body.dark-theme .sensor-label {
+  color: #ccc;
+}
+
+/* Relay Card */
+.relay-card h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.relay-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+.relay-item {
+  flex: 1 1 40%;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+  background: rgba(255,255,255,0.9);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.relay-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+body.dark-theme .relay-item {
+  background: rgba(50,50,50,0.85);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+.relay-indicator {
+  margin-bottom: 5px;
+}
+.relay-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s;
+}
+.relay-icon:hover {
+  transform: scale(1.1);
+}
+.relay-text {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #333;
+}
+body.dark-theme .relay-text {
+  color: #eee;
+}
+
+/* Slider Toggle dengan Feedback Visual */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-top: 5px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: background-color 0.4s ease,box-shadow 0.4s ease;
+  border-radius: 24px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  top: 3px;
+  background-color: #fff;
+  transition: transform 0.4s ease;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #4CAF50;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+body.dark-theme .input:checked + .slider {
+  background-color: #ffcc00;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+body.dark-theme .input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Timer Card */
+.timer-card h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.timer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.timer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timer-col label {
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+.timer-col select,
+.timer-col input {
+  margin: 4px 0;
+  padding: 6px;
+  width: 100px;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: background 0.3s;
+}
+.timer-col button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.timer-col button::after {
+  content: "";
+  position: absolute;
+  background: rgba(255,255,255,0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  transition: left 0.4s;
+}
+.timer-col button:active::after {
+  left: 0;
+  transition: 0s;
+}
+
+/* Schedule Card */
+.schedule-card h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.schedule-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.form-row label {
+  width: 80px;
+  font-size: 0.8rem;
+}
+.form-row input[type="time"],
+.form-row select {
+  flex: 1;
+  padding: 4px;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: background 0.3s;
+}
+.form-row button {
+  padding: 6px 12px;
+  background-color: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.form-row button::after {
+  content: "";
+  position: absolute;
+  background: rgba(255,255,255,0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  transition: left 0.4s;
+}
+.form-row button:active::after {
+  left: 0;
+  transition: 0s;
+}
+
+/* Weekly Options */
+.weekly-options {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.weekly-options label {
+  font-size: 0.7rem;
+  color: #555;
+}
+body.dark-theme .weekly-options label {
+  color: #ccc;
+}
+
+/* Note */
+.note {
+  font-size: 0.7rem;
+  color: #999;
+  text-align: center;
+  margin-top: 6px;
+}
+body.dark-theme .note {
+  color: #ccc;
+}
+
+/* Toast Styles */
+#toastContainer {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+.toast {
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .container {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+}
